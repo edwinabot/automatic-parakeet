@@ -1,7 +1,7 @@
 import json
 import pytest
 
-from etls.extract import retrieve_paths
+from etl.extract import retrieve_paths
 
 example_json_string_1 = """{
         "guid": "1234",
