@@ -14,3 +14,10 @@ repos:
     hooks:
       - id: black
         language_version: python3.7
+-   repo: local
+    hooks:
+    -   id: unittests
+        name: Unit Tests
+        entry: sh -c "PYTHONPATH=${PYTHONPATH}:${PWD} pipenv run pytest"
+        language: system
+        types: [python]
