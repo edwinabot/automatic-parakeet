@@ -1,9 +1,10 @@
-import regex
+import re
 
 import typing
 
-ATTRIBUTE_SEPARATOR = "."
-INDEX_READ_REX = regex.compile(r"\[\d+\]")
+path_separator = "."
+indexed_attribute_regex = re.compile(r"\w+\[\d+\]")
+indexed_attribute_extract_regex = re.compile(r"(\w+)\[(\d+)\]")
 
 
 def retrieve_paths(source: dict, paths_iterable: typing.Iterable) -> dict:
@@ -19,7 +20,7 @@ def retrieve_path(source: dict, path: str) -> typing.Any:
     """
     Retrieves from the source dict the value in the path if exists
     """
-    keys = path.split(ATTRIBUTE_SEPARATOR)
+    keys = path.split(path_separator)
     result = source
     for key in keys:
         result = retrieve_attribute(result, key)
@@ -30,8 +31,15 @@ def retrieve_path(source: dict, path: str) -> typing.Any:
 
 def retrieve_attribute(source, attribute):
     try:
-        result = source.get(attribute)
-    except AttributeError:
+        if indexed_attribute_regex.search(attribute):
+            attribute, index = indexed_attribute_extract_regex.search(
+                attribute
+            ).groups()
+            result = source.get(attribute)[int(index)]
+        else:
+            result = source.get(attribute)
+    except (AttributeError, IndexError, ValueError) as ex:
         # TODO: log attribute error
+        print(ex, attribute)
         result = None
     return result
