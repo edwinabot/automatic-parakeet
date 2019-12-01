@@ -1,7 +1,7 @@
 import json
 import pytest
 
-from etl.transform import retrieve_paths
+from etl.transform import retrieve_mappings
 
 example_json_string_1 = """{
         "guid": "1234",
@@ -42,7 +42,7 @@ def test_retrieving_unindexed_paths():
     }
     keys_iterable = ["guid", "content.entities", "score", "score.sign"]
     data = json.loads(example_json_string_1)
-    got = retrieve_paths(data, keys_iterable)
+    got = retrieve_mappings(data, keys_iterable)
     assert expecting == got
 
 
@@ -50,7 +50,7 @@ def test_retrieving_indexed_paths():
     expecting = {"guid": "1234", "content.entities[0]": "1.2.3.4"}
     keys_iterable = ["guid", "content.entities[0]"]
     data = json.loads(example_json_string_1)
-    got = retrieve_paths(data, keys_iterable)
+    got = retrieve_mappings(data, keys_iterable)
     assert expecting == got
 
 
@@ -66,7 +66,7 @@ def test_retrieving_mixed_paths():
         "content.entities[0].entities[2]": "fooware.com",
     }
     data = json.loads(example_json_string_2)
-    got = retrieve_paths(data, keys_iterable)
+    got = retrieve_mappings(data, keys_iterable)
     assert expecting == got
 
 
@@ -83,7 +83,7 @@ def test_retrieving_some_bad_paths():
     ]
     expecting = {"guid": "1234"}
     data = json.loads(example_json_string_2)
-    got = retrieve_paths(data, keys_iterable)
+    got = retrieve_mappings(data, keys_iterable)
     assert expecting == got
 
 

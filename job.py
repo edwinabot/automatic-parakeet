@@ -3,10 +3,14 @@ import logging
 import click
 
 from etl.extract import extract_from_files, update_repo
-from etl.transform import retrieve_paths
+from etl.transform import retrieve_mappings
 from etl.load import dump_to_json_file
 
-logging.basicConfig(filename="job.log", level=logging.INFO)
+logging.basicConfig(
+    filename="job.log",
+    level=logging.INFO,
+    format="%(asctime)s %(name)-12s %(levelname)-8s %(message)s",
+)
 
 
 class PythonListLiteralArgument(click.Argument):
@@ -47,7 +51,7 @@ def run_job(repo_root, repo_files_path, output_destination, fields):
     raw_data = extract_from_files(repo_root, repo_files_path)
     transformed_data = []
     for rd in raw_data:
-        transformed_data.append(retrieve_paths(rd, fields))
+        transformed_data.append(retrieve_mappings(rd, fields))
     dump_to_json_file(transformed_data, output_destination)
 
 
