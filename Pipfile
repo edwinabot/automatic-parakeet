@@ -10,6 +10,8 @@ pytest = "*"
 flake8 = "*"
 
 [packages]
+gitpython = "*"
+click = "*"
 
 [requires]
 python_version = "3.7"

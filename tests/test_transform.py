@@ -1,7 +1,7 @@
 import json
 import pytest
 
-from etls.extract import retrieve_paths
+from etl.transform import retrieve_paths
 
 example_json_string_1 = """{
         "guid": "1234",
@@ -75,6 +75,10 @@ def test_retrieving_some_bad_paths():
         "foobar",
         "content.entities[1].thisattributeismissing",
         "content.entities[852369].entities[2]",
+        "content.entities['first']",
+        "[",
+        "[3]",
+        "\n",
         "guid",
     ]
     expecting = {"guid": "1234"}
@@ -84,4 +88,4 @@ def test_retrieving_some_bad_paths():
 
 
 if __name__ == "__main__":
-    pytest.main(["tests/test_extract.py::test_retrieving_some_bad_paths"])
+    pytest.main()

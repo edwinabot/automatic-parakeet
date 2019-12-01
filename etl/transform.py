@@ -1,7 +1,8 @@
 import re
-
 import typing
+import logging
 
+logger = logging.getLogger()
 path_separator = "."
 indexed_attribute_regex = re.compile(r"\w+\[\d+\]")
 indexed_attribute_extract_regex = re.compile(r"(\w+)\[(\d+)\]")
@@ -39,7 +40,6 @@ def retrieve_attribute(source, attribute):
         else:
             result = source.get(attribute)
     except (AttributeError, IndexError, ValueError) as ex:
-        # TODO: log attribute error
-        print(ex, attribute)
+        logger.error(f"{ex}, {attribute}")
         result = None
     return result
