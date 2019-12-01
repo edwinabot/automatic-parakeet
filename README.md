@@ -57,11 +57,16 @@ You can also run the unittests executing:
 ### Notes
 
 * `etl.transform.retrieve_attribute` can be extended to retrieve "attributes" from any object leveraging the `getattr` BIF.
+* Integration tests are needed, maybe using Behave?
 
 
 ## Questionnaire
 
-1) Please check `etl.transform.retrieve_mappings` function implementation. I’ve made an effort to produce a KISS implementation. It also covers points 2 and 3.
+1) Please check `etl.transform.retrieve_mappings` function implementation. I’ve made an effort to produce a KISS implementation.
+
+2) GOTO 1
+
+3) GOTO 1
 
 4) Please check `job.py`. This is a CLI program that runs a job that extracts the files from the repository, transforms the data as per the provided set of mappings and dumps the resulting data set to a json file on the provided destination.
 
