@@ -10,9 +10,8 @@ indexed_attribute_extract_regex = re.compile(r"(\w+)\[(\d+)\]")
 
 def retrieve_mappings(source: dict, mappings: typing.Iterable) -> dict:
     """
-    `retrieve_mappings` builds a list of mappings (dicts) containing key:value pairs
-    if present on the source dicts.
-    Resulting keys are specified by the mappings.
+    `retrieve_mappings` returns a dict containing key:value pairs
+    if present on the `source` dict. Resulting keys are specified by `mappings`.
     """
     result = {}
     for path in mappings:  # type: str
