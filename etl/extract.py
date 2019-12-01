@@ -1,7 +1,10 @@
 import json
 import typing
+import logging
 
 import git
+
+logger = logging.getLogger()
 
 
 def extract_from_files(repo_root: str, files_path: str) -> typing.Iterable[dict]:
@@ -10,9 +13,9 @@ def extract_from_files(repo_root: str, files_path: str) -> typing.Iterable[dict]
             data = retrieve_data(repo, files_path)
         return data
     except git.exc.NoSuchPathError:
-        print(f"Repo does not exists in path {repo_root}")
+        logger.error(f"Repo does not exists in path {repo_root}")
     except Exception as ex:
-        print(f"An error occured {ex}")
+        logger.error(f"An error occured {ex}")
         raise
 
 

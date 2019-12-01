@@ -1,5 +1,8 @@
 import json
 import typing
+import logging
+
+logger = logging.getLogger()
 
 
 def dump_to_json_file(data: typing.List[dict], destination_path: str) -> str:
@@ -8,5 +11,5 @@ def dump_to_json_file(data: typing.List[dict], destination_path: str) -> str:
             json.dump(data, output)
         return destination_path
     except Exception as ex:
-        print(f"Error while dumping file {ex}")
+        logger.error(f"Error while dumping file {ex}")
         raise
