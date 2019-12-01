@@ -57,3 +57,18 @@ You can also run the unittests executing:
 ### Notes
 
 * `etl.transform.retrieve_attribute` can be extended to retrieve "attributes" from any object leveraging the `getattr` BIF.
+
+
+## Questionnaire
+
+1) Please check `etl.transform.retrieve_mappings` function implementation. I’ve made an effort to produce a KISS implementation. It also covers points 2 and 3.
+
+4) Please check `job.py`. This is a CLI program that runs a job that extracts the files from the repository, transforms the data as per the provided set of mappings and dumps the resulting data set to a json file on the provided destination.
+
+5) Analyzing the specs and thinking of how to make it less error prone, the first thing that popped into my head was “magic values”. The data mappings are lists of strings (the magic values), it might be easy to leave behind a typo and miss data because of it. This might be one of many improvement points, but not the most important.
+
+    A more robust data modeling might solve most of the problems before these materialize. In the CTI MITRE repo (https://github.com/mitre/cti) they state that CTI is expressed in STIX2.0, so using a STIX2 tool might help. MITRE provides a link to cti-python-styx (https://github.com/oasis-open/cti-python-stix2) and instructions on how to consume the data on CTI with it.
+
+    Exploring a little more https://stix2.readthedocs.io/en/latest/guide/patterns.html#STIX2-Patterns, it seems that the functionality to create the mappings is already there for us to use.
+
+    I think also that an estimation of the data volume might have been necessary, that piece of information would have conditioned some design and implementation details.
